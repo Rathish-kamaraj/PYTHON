@@ -1,0 +1,62 @@
+import datetime
+import random
+import string
+now=datetime.datetime.now()
+formated_date=now.strftime('%d-%m-%Y %H:%M:%S')
+receipt_id=''.join(random.choices(string.ascii_uppercase+string.digits,k=6))
+itemp={'Soap':30,'Rice':50,'Oil':175,'Bread':26.5,'Jam':20}
+oritem=[]
+item={1:'Soap',2:'Rice',3:'Oil',4:'Bread',5:'Jam'}
+i=0
+print('LIST OF ITEMS')
+print('1.Soap-Rs.30\n2.Rice-Rs.50\n3.Oil-Rs.175\n4.Bread-Rs.26.5\n5.Jam-Rs.20\n6.EXIT')
+print('Enter your choice 1 to 5 for purchase 6 for exit')
+t=int(input())
+while((t>=1)and(t<=5)):
+    i=i+1
+    print('Number of quantity required')
+    n=int(input())
+    t1=item[t]
+    t2=itemp[t1]
+    tc=n*t2
+    oritem=oritem+[item[t],itemp[t1],n,tc]
+    print('LIST OF ITEMS')
+    print('1.Soap-Rs.30\n2.Rice-Rs.50\n3.Oil-Rs.175\n4.Bread-Rs.26.5\n5.Jam-Rs.20\n6.EXIT')
+    print('Enter your choice 1 to 5 for purchase 6 for exit')
+    t=int(input())
+payer_name=input('Enter Your Name: ')
+payment_methods=['Cash','Debit Card','UPI','Credit Card']
+print('AVAILABLE PAYMENT METHODS:')
+for index,method in enumerate(payment_methods,start=1):
+    print(f'{index}.{method}')
+while True:
+    try:
+        choice=int(input('Please select a Payment Method by entering the corresponding numbe: '))
+        if 1<= choice <=len(payment_methods):
+            print(f'You Selected :{payment_methods[choice-1]}')
+            break
+        else:
+            print('Invalid choice. Please enter a valid number.')
+    except ValueError:
+            print('Invalid input.Please enter a number.')
+print('*'*50)
+print('*'*50)
+print('\n\tPAYMENT RECEIPT\n')
+print('*'*50)
+print('Date: \t',formated_date)
+print(f'Receipt ID     :\tREC202412{receipt_id}')
+print('Customer Name   : \t'+ payer_name)
+print(f'Payment Method  : \t{payment_methods[choice-1]}')
+print('*'*50)
+print('Product\t Unit Price\t Quantity\t Net Amount')
+print('*'*50)
+ct=0
+ind=0
+for x in range(i):
+    print('%s\t%0.2f\t\t%d\t\t%0.2f'%(oritem[ind],oritem[ind+1],oritem[ind+2],oritem[ind+3]))
+    ct=ct+oritem[ind+3]
+    ind=ind+4
+print('*'*50)
+print('Total Amount: %0.2f'%ct)
+print('\n\tTHANK YOU')
+print('*'*50)
